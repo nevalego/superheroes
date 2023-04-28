@@ -1,5 +1,19 @@
-<mat-list role="list">
-    <mat-list-item *ngFor="let superhero of superheroesToShow" role="listitem">{{superhero.name}}</mat-list-item>
-</mat-list>
-<mat-paginator [length]="superheroes.length" [pageSize]="10" (page)='paginate($event)' [pageSizeOptions]="[10, 20, 50]">
-</mat-paginator>
+<div id="container">
+    <mat-toolbar id="top-toolbar">
+        <mat-toolbar-row>
+            <app-filter-text-component class="textFilter" (clearTextFilter)="clearTextFilter()"
+                (textFilterChange)="textFilteringList($event)"></app-filter-text-component>
+            <span class="example-spacer"></span>
+            <button mat-raised-button color="primary" (click)="addSuperhero()">Añadir superhéroe
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div id="low-list-pag">
+        <mat-list role="list">
+            <mat-list-item class="list-item" *ngFor="let superhero of superheroesToShow" (click)="seeSuperheroDetails(superhero
+                )" role="listitem">{{superhero.name}}</mat-list-item>
+        </mat-list>
+        <mat-paginator [length]="superheroes.length" [pageSize]="10" (page)='paginate($event)'>
+        </mat-paginator>
+    </div>
+</div>

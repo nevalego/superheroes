@@ -38,7 +38,8 @@ export class SuperheroesService {
    * @returns 
    */
   filterSuperheroesByName(textField: string) {
-    return of(SUPERHEROES.filter(superheroe => superheroe.name.includes(textField)));
+    return of(SUPERHEROES.filter(superheroe => 
+      superheroe.name.toLocaleLowerCase().includes(textField.toLocaleLowerCase())));
   }
 
   /**

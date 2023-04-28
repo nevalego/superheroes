@@ -1,0 +1,29 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#top-toolbar {    
+    width: 100%;
+    height: 48px;
+}
+
+.textFilter {
+    width: 50px;
+}
+
+#low-list-pag {
+    width: 100%;
+}
+
+.list-item {
+    height: 40px !important;
+}
+
+.list-item:hover {
+    background-color: azure;
+}

@@ -10,11 +10,21 @@ import {MatToolbarModule} from '@angular/material/toolbar'
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatButtonModule} from '@angular/material/button';
+import { SuperheroDetailsComponent } from './pages/superhero-details/superhero-details.component';
+import { NewSuperheroPageComponent } from './pages/new-superhero-page/new-superhero-page.component';
+import { MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule}from '@angular/material/form-field';
+import { FilterTextComponentComponent } from './components/filter-text-component/filter-text-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SuperheroesPageComponent
+    SuperheroesPageComponent,
+    SuperheroDetailsComponent,
+    NewSuperheroPageComponent,
+    FilterTextComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +34,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
