@@ -16,7 +16,12 @@ import { NewSuperheroPageComponent } from './pages/new-superhero-page/new-superh
 import { MatInputModule} from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule}from '@angular/material/form-field';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog'
 import { FilterTextComponentComponent } from './components/filter-text-component/filter-text-component.component';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +29,8 @@ import { FilterTextComponentComponent } from './components/filter-text-component
     SuperheroesPageComponent,
     SuperheroDetailsComponent,
     NewSuperheroPageComponent,
-    FilterTextComponentComponent
+    FilterTextComponentComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +44,10 @@ import { FilterTextComponentComponent } from './components/filter-text-component
     MatButtonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

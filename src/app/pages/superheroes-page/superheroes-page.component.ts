@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, first } from 'rxjs';
+import { ConfirmationModalComponent } from 'src/app/components/confirmation-modal/confirmation-modal.component';
 import { Superheroe } from 'src/app/model/superheroe.model';
 import { SuperheroesService } from 'src/app/services/superheroes/superheroes.service';
 
@@ -17,7 +20,9 @@ export class SuperheroesPageComponent implements OnInit, OnDestroy{
 
   constructor(
     private superheroesService: SuperheroesService,
-    private router: Router
+    private router: Router,
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.superheroes = [];
     this.superheroesToShow = [];
@@ -49,6 +54,35 @@ export class SuperheroesPageComponent implements OnInit, OnDestroy{
 
   addSuperhero() {
     this.router.navigate(['superheroes/new-superhero']);
+  }
+
+  deleteSuperhero(superhero: Superheroe) {
+
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '30%',
+      data: {
+        icon: 'warning',
+        title: 'Confirmación de borrado',
+        body: '¿Está seguro de que desea borrar al superhéroe ' + superhero.name + '?',
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe((accept) => {
+        if (accept) {
+          this.superheroesService.deleteSuperheroe(superhero).subscribe(
+            (success) => {
+              if(success) {
+                this.snackbar.open('Superhéroe eliminado con éxito');
+              }else {
+                this.snackbar.open('El superhéroe no pudo ser eliminado');
+              }
+            }
+          )
+        }
+      }); 
   }
 
   seeSuperheroDetails(superhero: Superheroe){

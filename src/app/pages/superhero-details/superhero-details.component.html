@@ -1,1 +1,29 @@
-<p>superhero-details works!</p>
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Descripción</mat-label>
+        <input type="text" matInput formControlName="description" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Origen</mat-label>
+        <input type="text" matInput formControlName="origin" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Poder</mat-label>
+        <mat-select formControlName="power" name="food">
+            <mat-option *ngFor="let powerType of powerTypes" [value]="powerType">
+                {{powerType}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Edad</mat-label>
+        <input type="number" matInput formControlName="age" />
+    </mat-form-field>
+
+    <button mat-raised-button (click)="updateSuperheroe()">Guardar</button>
+    <button mat-raised-button (click)="backToList()">Volver</button>
+</form>

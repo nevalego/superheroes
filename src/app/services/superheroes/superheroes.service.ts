@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Superheroe } from 'src/app/model/superheroe.model';
+import { SuperheroPowerTypes, Superheroe } from 'src/app/model/superheroe.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,16 @@ export class SuperheroesService {
 
   constructor() { }
 
+  getLastIdentifier() {
+    let ids: number [] = SUPERHEROES.map((superhero) => Number.parseInt(superhero.id));
+    return ids.reduce((a,b) => Math.max(a,b));
+  }
+
+  addSuperhero(superhero: Superheroe) {
+    // TODO CHEK ID not EXISTING ALREADY
+    
+    SUPERHEROES.push(superhero);
+  }
 
   /**
    * Consulta todos los superhéroes
@@ -78,22 +88,42 @@ export class SuperheroesService {
 export const SUPERHEROES: Superheroe [] = [
   {
     id: '1',
-    name: 'Spiderman'
+    name: 'Spiderman',
+    description: 'Hombre-araña',
+    age: 10,
+    origin: '',
+    power: 'Volar'
   },
   {
     id: '2',
-    name: 'Superman'
+    name: 'Superman',
+    description: '',
+    age: 10,
+    origin: '',
+    power: 'Volar'
   },
   {
     id: '3',
-    name: 'Manolito el fuerte'
+    name: 'Manolito el fuerte',
+    description: '',
+    age: 10,
+    origin: '',
+    power: 'Volar'
   },
   {
     id: '4',
-    name: 'Wonder woman'
+    name: 'Wonder woman',
+    description: '',
+    age: 10,
+    origin: '',
+    power: 'Volar'
   },
   {
     id: '5',
-    name: 'Super López'
+    name: 'Super López',
+    description: '',
+    age: 10,
+    origin: '',
+    power: 'Volar'
   }
 ];
