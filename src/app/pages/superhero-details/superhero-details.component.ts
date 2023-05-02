@@ -54,7 +54,7 @@ export class SuperheroDetailsComponent {
     // TODO VALIDATORS
     const newSuperhero = {
       id: this.superheroe.id,
-      name: this.form.get('name')?.value ?? '',
+      name: this.form.get('name')?.value.toUpperCase() ?? '',
       description: this.form.get('description')?.value ?? '',
       origin: this.form.get('origin')?.value ?? '',
       power: this.form.get('power')?.value,

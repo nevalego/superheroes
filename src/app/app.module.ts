@@ -18,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule}from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSelectModule} from '@angular/material/select';
-import {MatDialogModule} from '@angular/material/dialog'
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import { FilterTextComponentComponent } from './components/filter-text-component/filter-text-component.component';
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
@@ -47,7 +48,8 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
     MatInputModule,
     MatSnackBarModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,7 @@
 <form [formGroup]="form">
     <mat-form-field>
         <mat-label>Nombre</mat-label>
-        <input type="text" matInput formControlName="name" />
+        <input type="text" #name (input)="name.value = name.value.toUpperCase()" matInput formControlName="name" />
     </mat-form-field>
     <mat-form-field>
         <mat-label>Descripción</mat-label>
