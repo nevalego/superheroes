@@ -14,15 +14,22 @@ export class SuperheroesService {
 
   constructor() { }
 
+/**
+ * Recupera el ultimo id de los superheroes almacenados
+ * @returns 
+ */
   getLastIdentifier() {
     let ids: number [] = SUPERHEROES.map((superhero) => Number.parseInt(superhero.id));
     return ids.reduce((a,b) => Math.max(a,b));
   }
 
+  /**
+   * Añade un nuevo superheroe
+   * @param superhero 
+   * @returns 
+   */
   addSuperhero(superhero: Superheroe) {
-    // TODO CHEK ID not EXISTING ALREADY
-    
-    SUPERHEROES.push(superhero);
+    return of(SUPERHEROES.push(superhero) > 0);
   }
 
   /**
@@ -53,13 +60,17 @@ export class SuperheroesService {
   }
 
   /**
-   * 
+   * Actualiza los datos de un superheroe
    * @param newSuperheroe 
    */
   updateSuperheroe(newSuperheroe: Superheroe): Observable<boolean> {
     const superheroeInDatabse = SUPERHEROES.find(superheroe => superheroe.id === newSuperheroe.id);
     if(superheroeInDatabse) {
       superheroeInDatabse.name = newSuperheroe.name;
+      superheroeInDatabse.age = newSuperheroe.age;
+      superheroeInDatabse.description = newSuperheroe.description;
+      superheroeInDatabse.origin = newSuperheroe.origin;
+      superheroeInDatabse.power = newSuperheroe.power;
       return of(true);
     } else {
       return of(false);
@@ -89,41 +100,41 @@ export const SUPERHEROES: Superheroe [] = [
   {
     id: '1',
     name: 'Spiderman',
-    description: 'Hombre-araña',
+    description: 'El Hombre-araña',
     age: 10,
-    origin: '',
-    power: 'Volar'
+    origin: 'Marvel',
+    power: 'Fuerza sobrehumana'
   },
   {
     id: '2',
     name: 'Superman',
-    description: '',
+    description: 'Superhéroe ficticio que apareció por primera vez en los cómics estadounidenses publicados por DC Comics',
     age: 10,
-    origin: '',
+    origin: 'DC',
     power: 'Volar'
   },
   {
     id: '3',
     name: 'Manolito el fuerte',
-    description: '',
+    description: 'Manolito',
     age: 10,
-    origin: '',
-    power: 'Volar'
+    origin: 'Manolito',
+    power: 'Fuerza sobrehumana'
   },
   {
     id: '4',
     name: 'Wonder woman',
-    description: '',
+    description: 'Mujer Maravilla',
     age: 10,
-    origin: '',
-    power: 'Volar'
+    origin: 'DC',
+    power: 'Fuerza sobrehumana'
   },
   {
     id: '5',
     name: 'Super López',
-    description: '',
+    description: 'Parodia de Superman',
     age: 10,
-    origin: '',
+    origin: 'Jan',
     power: 'Volar'
   }
 ];

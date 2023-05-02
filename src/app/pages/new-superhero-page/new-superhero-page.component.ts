@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,10 +15,12 @@ export class NewSuperheroPageComponent {
   form!: FormGroup;
 
   powerTypes: any[] = Object.keys(SuperheroPowerTypes);
+  PowerTypes = SuperheroPowerTypes;
 
   constructor(
     private router: Router,
-    private superheroService: SuperheroesService
+    private superheroService: SuperheroesService,
+    private snackBar: MatSnackBar
   ) {
     this.form = new FormGroup({
       name: new FormControl(''),
@@ -36,7 +39,7 @@ export class NewSuperheroPageComponent {
   addSuperheroe() {
     // TODO VALIDATORS
     const newSuperhero = {
-      id: this.superheroService.getLastIdentifier().toString(),
+      id: (this.superheroService.getLastIdentifier() + 1).toString(),
       name: this.form.get('name')?.value ?? '',
       description: this.form.get('description')?.value ?? '',
       origin: this.form.get('origin')?.value ?? '',
@@ -44,8 +47,15 @@ export class NewSuperheroPageComponent {
       age: this.form.get('age')?.value ?? 1,
     } as Superheroe;
 
-    this.superheroService.addSuperhero(newSuperhero);
-    // SUBSCRIBE TO SUCCES AND SNACKBAR
-    this.backToList();
+    this.superheroService.addSuperhero(newSuperhero).subscribe(
+      (result) => {
+        if(result) {
+          this.snackBar.open('Superhéroe añadido');
+          this.backToList();
+        } else {
+          this.snackBar.open('Error al añadir al superhéroe');
+        }
+      }
+    )
   }
 }

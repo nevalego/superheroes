@@ -5,7 +5,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Descripción</mat-label>
-        <input type="text" matInput formControlName="description" />
+        <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Origen</mat-label>
@@ -14,9 +14,13 @@
     <mat-form-field>
         <mat-label>Poder</mat-label>
         <mat-select formControlName="power" name="food">
-            <mat-option *ngFor="let powerType of powerTypes" [value]="powerType">
-                {{powerType}}
-            </mat-option>
+            <mat-option [value]="PowerTypes.FLY">Volar</mat-option>
+            <mat-option [value]="PowerTypes.CONGITIVE">Precognición</mat-option>
+            <mat-option [value]="PowerTypes.INVISIBLE">Invisibilidad</mat-option>
+            <mat-option [value]="PowerTypes.SENSES">Percepción extrasensorial</mat-option>
+            <mat-option [value]="PowerTypes.SHAPE">Cambio de forma</mat-option>
+            <mat-option [value]="PowerTypes.STRENGTH">Fuerza sobrehumana</mat-option>
+            <mat-option [value]="PowerTypes.TELEPORT">Teleportación</mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field>

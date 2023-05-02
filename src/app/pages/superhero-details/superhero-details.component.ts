@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +10,7 @@ import { SuperheroesService } from 'src/app/services/superheroes/superheroes.ser
   templateUrl: './superhero-details.component.html',
   styleUrls: ['./superhero-details.component.scss']
 })
-export class SuperheroDetailsComponent implements OnInit{
+export class SuperheroDetailsComponent {
 
   form!: FormGroup;
 
@@ -17,23 +18,14 @@ export class SuperheroDetailsComponent implements OnInit{
 
   superheroe!: Superheroe;
 
+  PowerTypes = SuperheroPowerTypes;
+
   constructor(
     private router: Router,
     private superheroService: SuperheroesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
-
-    // TODO GET BY ID FROM ROUTE AND SAVE IN CONTROL VALUES
-
-    this.form = new FormGroup({
-      name: new FormControl(''),
-      description: new FormControl(''),
-      origin: new FormControl(''),
-      power: new FormControl(''),
-      age: new FormControl('')
-    })
-  }
-  ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       let id = params.get('id');
       if(id) {
@@ -41,21 +33,17 @@ export class SuperheroDetailsComponent implements OnInit{
           (result) =>  {
             if(result){
              this.superheroe = result;
-              this.setValuesToForm();
              }
           });
       }
     });
-  }
-
-  setValuesToForm() {
-    if(this.superheroe) {
-      this.form.get('name')?.setValue(this.superheroe.name);
-      this.form.get('description')?.setValue(this.superheroe.description);
-      this.form.get('origin')?.setValue(this.superheroe.origin);
-      this.form.get('power')?.setValue(this.superheroe.power);
-      this.form.get('age')?.setValue(this.superheroe.age);
-    }
+    this.form = new FormGroup({
+      name: new FormControl(this.superheroe.name),
+      description: new FormControl(this.superheroe.description),
+      origin: new FormControl(this.superheroe.origin),
+      power: new FormControl(this.superheroe.power),
+      age: new FormControl(this.superheroe.age)
+    })
   }
     
   backToList() {
@@ -73,8 +61,16 @@ export class SuperheroDetailsComponent implements OnInit{
       age: this.form.get('age')?.value ?? 1,
     } as Superheroe;
 
-    this.superheroService.updateSuperheroe(newSuperhero);
-    // SUBSCRIBE TO SUCCES AND SNACKBAR
-    this.backToList();
+    this.superheroService.updateSuperheroe(newSuperhero).subscribe(
+      (result) => {
+        if(result) {
+          this.snackBar.open('Superhéroe actualizado');
+          this.backToList();
+        }else {
+          this.snackBar.open('Error al actualizar el supehéroe');
+        }
+      }
+    )
+   
   }
 }

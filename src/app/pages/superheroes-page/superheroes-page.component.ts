@@ -70,11 +70,12 @@ export class SuperheroesPageComponent implements OnInit, OnDestroy{
     dialogRef
       .afterClosed()
       .pipe(first())
-      .subscribe((accept) => {
+      .subscribe((accept: any) => {
         if (accept) {
           this.superheroesService.deleteSuperheroe(superhero).subscribe(
             (success) => {
               if(success) {
+                this.getSuperheroes();
                 this.snackbar.open('Superhéroe eliminado con éxito');
               }else {
                 this.snackbar.open('El superhéroe no pudo ser eliminado');

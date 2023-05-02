@@ -9,11 +9,11 @@ export interface Superheroe {
 
 
 export enum SuperheroPowerTypes {
-    'Volar',
-    'Fuerza sobrehumana',
-    'Percepción extrasensorial',
-    'Invisibilidad',
-    'Precognición',
-    'Teleportación',
-    'Cambio de forma'
+    FLY = 'Volar',
+    STRENGTH = 'Fuerza sobrehumana',
+    SENSES = 'Percepción extrasensorial',
+    INVISIBLE = 'Invisibilidad',
+    CONGITIVE = 'Precognición',
+    TELEPORT = 'Teleportación',
+    SHAPE = 'Cambio de forma'
 }
