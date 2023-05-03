@@ -1,0 +1,44 @@
+{
+  "superheroes": [
+    {
+      "id": "1",
+      "name": "Spiderman",
+      "description": "El Hombre-araña",
+      "age": 10,
+      "origin": "Marvel",
+      "power": "Fuerza sobrehumana"
+    },
+    {
+      "id": "2",
+      "name": "Superman",
+      "description": "Superhéroe ficticio que apareció por primera vez en los cómics estadounidenses publicados por DC Comics",
+      "age": 10,
+      "origin": "DC",
+      "power": "Volar"
+    },
+    {
+      "id": "3",
+      "name": "Manolito el fuerte",
+      "description": "Manolito",
+      "age": 10,
+      "origin": "Manolito",
+      "power": "Fuerza sobrehumana"
+    },
+    {
+      "id": "4",
+      "name": "Wonder woman",
+      "description": "Mujer Maravilla",
+      "age": 10,
+      "origin": "DC",
+      "power": "Fuerza sobrehumana"
+    },
+    {
+      "id": "5",
+      "name": "Super López",
+      "description": "Parodia de Superman",
+      "age": 10,
+      "origin": "Jan",
+      "power": "Volar"
+    }
+  ]
+}

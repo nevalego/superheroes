@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, map, catchError } from 'rxjs';
 import { SuperheroPowerTypes, Superheroe } from 'src/app/model/superheroe.model';
 
 @Injectable({
@@ -8,11 +9,17 @@ import { SuperheroPowerTypes, Superheroe } from 'src/app/model/superheroe.model'
 
 /**
  * MOCK SERVER TO CALL HTTP WITHOUT BACK END
- * https://medium.com/geekculture/setting-up-a-mock-backend-with-angular-13-applications-26a21788f7da
- */
+ * 
+ * 
+ * https://medium.com/letsboot/the-perfect-mock-backend-to-start-with-an-angular-application-3d751d16614f
+ * 
+ * Y EL INTERCEPTOR DE LOADING
+ *  */
 export class SuperheroesService {
 
-  constructor() { }
+  url = 'http://localhost:3000/superheroes';
+
+  constructor(private http: HttpClient) { }
 
 /**
  * Recupera el ultimo id de los superheroes almacenados
@@ -36,8 +43,14 @@ export class SuperheroesService {
    * Consulta todos los superhéroes
    */
   getSuperheroes(): Observable<Superheroe[]> {
-    return of(SUPERHEROES);
-  }
+    return this.http.get(this.url).pipe(
+      map((response: any) => response.json()),
+      catchError((error: any, result: any) => {
+        console.log(error);
+        return of(result);
+      })
+      );
+ }
 
   /**
    * Consulta un único superhéroe por id
