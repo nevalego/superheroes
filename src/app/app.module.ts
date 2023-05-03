@@ -22,6 +22,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import { FilterTextComponentComponent } from './components/filter-text-component/filter-text-component.component';
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
@@ -51,7 +53,7 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
     MatDialogModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

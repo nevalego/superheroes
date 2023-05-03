@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, map, catchError } from 'rxjs';
 import { SuperheroPowerTypes, Superheroe } from 'src/app/model/superheroe.model';
@@ -9,9 +9,6 @@ import { SuperheroPowerTypes, Superheroe } from 'src/app/model/superheroe.model'
 
 /**
  * MOCK SERVER TO CALL HTTP WITHOUT BACK END
- * 
- * 
- * https://medium.com/letsboot/the-perfect-mock-backend-to-start-with-an-angular-application-3d751d16614f
  * 
  * Y EL INTERCEPTOR DE LOADING
  *  */
@@ -26,8 +23,22 @@ export class SuperheroesService {
  * @returns 
  */
   getLastIdentifier() {
+    return this.getSuperheroes().pipe(
+      map((response: any) => {
+        let ids =  response.map((superhero: Superheroe) => Number.parseInt(superhero.id));
+        let last =  ids.reduce((a: any,b: any) => Math.max(a,b));
+        console.log(last);
+        return last;
+      }),
+      catchError((error: any, result: any) => {
+        console.log(error);
+        return of(result);
+      })
+    )
+
+    /*
     let ids: number [] = SUPERHEROES.map((superhero) => Number.parseInt(superhero.id));
-    return ids.reduce((a,b) => Math.max(a,b));
+    return ids.reduce((a,b) => Math.max(a,b));*/
   }
 
   /**
@@ -36,7 +47,18 @@ export class SuperheroesService {
    * @returns 
    */
   addSuperhero(superhero: Superheroe) {
-    return of(SUPERHEROES.push(superhero) > 0);
+    return this.http.post(this.url, superhero).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response;
+      }),
+      catchError((error: any, result: any) => {
+        console.log(error);
+        return of(result);
+      })
+    );
+    
+    //return of(SUPERHEROES.push(superhero) > 0);
   }
 
   /**
@@ -44,12 +66,15 @@ export class SuperheroesService {
    */
   getSuperheroes(): Observable<Superheroe[]> {
     return this.http.get(this.url).pipe(
-      map((response: any) => response.json()),
+      map((response: any) => {
+        console.log(response);
+        return response;
+      }),
       catchError((error: any, result: any) => {
         console.log(error);
         return of(result);
       })
-      );
+    );
  }
 
   /**
@@ -58,7 +83,18 @@ export class SuperheroesService {
    * @returns 
    */
   getSuperheroeById(id: string): Observable<Superheroe | undefined> {
-    return of(SUPERHEROES.find(superheroe => superheroe.id === id));
+    return this.getSuperheroes().pipe(
+      map((response: any) => {
+        let data =  response.find((superheroe: Superheroe) => superheroe.id === id);
+        console.log(data);
+        return data;
+      }),
+      catchError((error: any, result: any) => {
+        console.log(error);
+        return of(result);
+      })
+    )
+    //return of(SUPERHEROES.find(superheroe => superheroe.id === id));
   }
 
   /**
@@ -68,8 +104,21 @@ export class SuperheroesService {
    * @returns 
    */
   filterSuperheroesByName(textField: string) {
-    return of(SUPERHEROES.filter(superheroe => 
-      superheroe.name.toLocaleLowerCase().includes(textField.toLocaleLowerCase())));
+    
+    return this.getSuperheroes().pipe(
+      map((response: any) => {
+        let data =  response.filter((superheroe: Superheroe) => 
+        superheroe.name.toLocaleLowerCase().includes(textField.toLocaleLowerCase()));
+        console.log(data);
+        return data;
+      }),
+      catchError((error: any, result: any) => {
+        console.log(error);
+        return of(result);
+      })
+    )
+    /*return of(SUPERHEROES.filter(superheroe => 
+      superheroe.name.toLocaleLowerCase().includes(textField.toLocaleLowerCase())));*/
   }
 
   /**
@@ -77,7 +126,18 @@ export class SuperheroesService {
    * @param newSuperheroe 
    */
   updateSuperheroe(newSuperheroe: Superheroe): Observable<boolean> {
-    const superheroeInDatabse = SUPERHEROES.find(superheroe => superheroe.id === newSuperheroe.id);
+    return this.http.put(this.url + '/' + newSuperheroe.id , newSuperheroe).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response;
+      }),
+      catchError((error: any, result: any) => {
+        console.log(error);
+        return of(result);
+      })
+    );
+
+    /*const superheroeInDatabse = SUPERHEROES.find(superheroe => superheroe.id === newSuperheroe.id);
     if(superheroeInDatabse) {
       superheroeInDatabse.name = newSuperheroe.name;
       superheroeInDatabse.age = newSuperheroe.age;
@@ -87,7 +147,7 @@ export class SuperheroesService {
       return of(true);
     } else {
       return of(false);
-    }
+    }*/
   }
 
   /**
@@ -96,14 +156,24 @@ export class SuperheroesService {
    * @returns 
    */
   deleteSuperheroe(superheroe: Superheroe): Observable<boolean> {
-    const index = SUPERHEROES.indexOf(superheroe);
+    return this.http.delete(this.url + '/' + superheroe.id).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response;
+      }),
+      catchError((error: any, result: any) => {
+        console.log(error);
+        return of(result);
+      })
+    );
+
+    /*const index = SUPERHEROES.indexOf(superheroe);
     if (index > -1) { // only splice array when item is found
       SUPERHEROES.splice(index, 1); // 2nd parameter means remove one item only
       return of(true);
     } else {
-
       return of(false);
-    }
+    }*/
 
   }
 }

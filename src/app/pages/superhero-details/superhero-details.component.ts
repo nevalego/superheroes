@@ -33,17 +33,28 @@ export class SuperheroDetailsComponent {
           (result) =>  {
             if(result){
              this.superheroe = result;
+             this.initializeValues();
              }
           });
       }
     });
     this.form = new FormGroup({
-      name: new FormControl(this.superheroe.name),
-      description: new FormControl(this.superheroe.description),
-      origin: new FormControl(this.superheroe.origin),
-      power: new FormControl(this.superheroe.power),
-      age: new FormControl(this.superheroe.age)
+      name: new FormControl(''),
+      description: new FormControl(''),
+      origin: new FormControl(''),
+      power: new FormControl(''),
+      age: new FormControl(1)
     })
+  }
+
+  initializeValues() {
+    this.form = new FormGroup({
+      name: new FormControl(this.superheroe.name ?? ''),
+      description: new FormControl(this.superheroe.description ?? ''),
+      origin: new FormControl(this.superheroe.origin ?? ''),
+      power: new FormControl(this.superheroe.power ?? ''),
+      age: new FormControl(this.superheroe.age ?? 10)
+    });
   }
     
   backToList() {
