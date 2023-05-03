@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SuperheroPowerTypes, Superheroe } from 'src/app/model/superheroe.model';
 import { SuperheroesService } from 'src/app/services/superheroes/superheroes.service';
@@ -27,11 +27,11 @@ export class NewSuperheroPageComponent implements OnDestroy{
     private snackBar: MatSnackBar
   ) {
     this.form = new FormGroup({
-      name: new FormControl(''),
+      name: new FormControl('', Validators.required),
       description: new FormControl(''),
       origin: new FormControl(''),
       power: new FormControl(''),
-      age: new FormControl('')
+      age: new FormControl(1, [Validators.min(1), Validators.max(99)])
     })
 
     this.lastNumberSub$ = this.superheroService.getLastIdentifier().subscribe(
@@ -48,25 +48,26 @@ export class NewSuperheroPageComponent implements OnDestroy{
   }
 
   addSuperheroe() {
-    // TODO VALIDATORS
-    const newSuperhero = {
-      id: (this.lastNumber + 1).toString(),
-      name: this.form.get('name')?.value.toUpperCase() ?? '',
-      description: this.form.get('description')?.value ?? '',
-      origin: this.form.get('origin')?.value ?? '',
-      power: this.form.get('power')?.value,
-      age: this.form.get('age')?.value ?? 1,
-    } as Superheroe;
+    if(this.form.valid) {
+      const newSuperhero = {
+        id: (this.lastNumber + 1).toString(),
+        name: this.form.get('name')?.value.toUpperCase() ?? '',
+        description: this.form.get('description')?.value ?? '',
+        origin: this.form.get('origin')?.value ?? '',
+        power: this.form.get('power')?.value,
+        age: this.form.get('age')?.value ?? 1,
+      } as Superheroe;
 
-    this.superheroService.addSuperhero(newSuperhero).subscribe(
-      (result) => {
-        if(result) {
-          this.snackBar.open('Superhéroe añadido');
-          this.backToList();
-        } else {
-          this.snackBar.open('Error al añadir al superhéroe');
+      this.superheroService.addSuperhero(newSuperhero).subscribe(
+        (result) => {
+          if(result) {
+            this.snackBar.open('Superhéroe añadido');
+            this.backToList();
+          } else {
+            this.snackBar.open('Error al añadir al superhéroe');
+          }
         }
-      }
-    )
+      )
+    }
   }
 }

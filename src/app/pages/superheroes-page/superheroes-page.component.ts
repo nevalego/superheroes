@@ -57,7 +57,6 @@ export class SuperheroesPageComponent implements OnInit, OnDestroy{
   }
 
   deleteSuperhero(superhero: Superheroe) {
-
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       width: '30%',
       data: {
@@ -66,7 +65,6 @@ export class SuperheroesPageComponent implements OnInit, OnDestroy{
         body: '¿Está seguro de que desea borrar al superhéroe ' + superhero.name + '?',
       },
     });
-
     dialogRef
       .afterClosed()
       .pipe(first())
