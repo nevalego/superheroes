@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { delay } from 'rxjs';
+import { LoadingService } from './services/loading.services';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'superheroes';
+  loading: boolean = false;
 
-  isLoading: boolean = false;
+  constructor(
+    private _loading: LoadingService
+  ){ }
 
-  constructor(){}
-  ngOnInit(): void {
+  ngOnInit() {
+    this.listenToLoading();
   }
 
+  /**
+   * Listen to the loadingSub property in the LoadingService class. This drives the
+   * display of the loading spinner.
+   */
+  listenToLoading(): void {
+    this._loading.loadingSub
+      .pipe(delay(0)) 
+      .subscribe((loading) => {
+        this.loading = loading;
+      });
+  }
   
 }

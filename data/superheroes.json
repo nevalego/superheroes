@@ -26,11 +26,11 @@
     },
     {
       "id": "4",
-      "name": "Wonder woman",
+      "name": "WONDER WOMAN",
       "description": "Mujer Maravilla",
-      "age": 10,
       "origin": "DC",
-      "power": "Fuerza sobrehumana"
+      "power": "Fuerza sobrehumana",
+      "age": 26
     },
     {
       "id": "5",

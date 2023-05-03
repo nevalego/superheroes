@@ -23,6 +23,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import { FilterTextComponentComponent } from './components/filter-text-component/filter-text-component.component';
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MyInterceptor } from './services/interceptor';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     SuperheroDetailsComponent,
     NewSuperheroPageComponent,
     FilterTextComponentComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,
